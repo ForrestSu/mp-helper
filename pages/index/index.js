@@ -31,7 +31,6 @@ Page({
         var that = this;
         ApiUtil.GetCMSRate().then(function (res) {
             console.log("点击刷新");
-            console.log(res.data);
             if (res.data.length < 0) {
                 return
             }

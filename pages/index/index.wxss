@@ -36,11 +36,16 @@
     font-weight: bold;
 }
 
-.midPrice {
+.mid-price {
     display: flex;
     align-items: center;
     font-size: x-large;
     color: green;
+    font-weight: bold;
+}
+
+.update-time {
+    font-size: small;
 }
 
 .btn-refresh {
