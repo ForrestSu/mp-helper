@@ -1,19 +1,51 @@
 /**index.wxss**/
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #aaa;
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
 }
 
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.block1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    padding: 0;
 }
 
-.usermotto {
-  margin-top: 200px;
+.body-content {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.rate-block {
+    position: relative;
+    top: 8%;
+    left: 20%;
+    font-size: large;
+}
+
+.currency {
+    display: grid;
+    align-items: center;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.midPrice {
+    display: flex;
+    align-items: center;
+    font-size: x-large;
+    color: green;
+}
+
+.btn-refresh {
+    position: relative;
+    width: 30%;
+    top: 20%;
+    align-items: center;
 }

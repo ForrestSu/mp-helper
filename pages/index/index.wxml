@@ -1,23 +1,18 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <block wx:if="{{canIUseOpenData}}">
-      <view class="userinfo-avatar" bindtap="bindViewTap">
-        <open-data type="userAvatarUrl"></open-data>
-      </view>
-      <open-data type="userNickName"></open-data>
-    </block>
-    <!-- <block wx:elif="{{!hasUserInfo}}">
-      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-      <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-      <view wx:else> 请使用1.4.4及以上版本基础库 </view>
-    </block> -->
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+    <view class="block1">
+        <view class="body-content">
+            <view class="rate-block">
+                <text class="currency"> {{hkdRate.ZCcyNbr}}汇率：</text>
+                <text class="midPrice"> 中间价: {{hkdRate.ZRtbBid}} \n</text>
+                <text> \n</text>
+                <text> 交易币单位: 100 \n</text>
+                <text> 基本币: 人民币 \n</text>
+                <text> 现汇买入价: {{hkdRate.ZRthBid}} \n</text>
+                <text> 现汇卖出价: {{hkdRate.ZRthOfr}} \n</text>
+                <text> 更新日期: {{hkdRate.ZRatDat}} {{hkdRate.ZRatTim}}\n</text>
+            </view>
+            <button class="btn-refresh" type="primary" bindtap="bindViewTap">刷新</button>
+        </view>
+    </view>
 </view>

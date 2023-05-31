@@ -1,54 +1,64 @@
 // index.js
+const ApiUtil = require('../../utils/api_util.js');
 // 获取应用实例
-const app = getApp()
+const app = getApp();
+
 
 Page({
     data: {
-        motto: 'Hello World',
         userInfo: {},
         hasUserInfo: false,
-        canIUse: wx.canIUse('button.open-type.getUserInfo'),
-        canIUseGetUserProfile: false,
-        canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName') // 如需尝试获取用户信息可改为false
+        hkdRate: {
+            ZCcyNbr: "未知", // 币种
+            ZRatDat: "date", // 日期
+            ZRatTim: "time", // 时间
+            ZRtbBid: "0",    // 中间价
+            ZRthBid: "0", // 现汇买入价
+            ZRthOfr: "0"  // 现汇卖出价
+        }
     },
-    // 事件处理函数
-    bindViewTap() {
-        // wx.navigateTo({
-        //   url: '../action/action'
-        // })
+    // 点击刷新
+    bindViewTap: function () {
+        this.getCmsRate()
     },
 
     onLoad: function (options) {
-        const deviceInfo = wx.getDeviceInfo()
-        if (deviceInfo.model.startsWith("iPhone 13")) {
-            console.log("ok")
-        }
-        var date = new Date()
-        date.setDate(date.getDate() - 1)
-        const week = date.getDay()
-        console.log("week=" + week)
-        console.log("week=" + date)
+        // const deviceInfo = wx.getDeviceInfo()
+        this.getCmsRate()
     },
 
-    getUserProfile(e) {
-        // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-        wx.getUserProfile({
-            desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-            success: (res) => {
-                console.log(res)
-                this.setData({
-                    userInfo: res.userInfo,
-                    hasUserInfo: true
-                })
+    getCmsRate: function () {
+        var that = this;
+        ApiUtil.GetCMSRate().then(function (res) {
+            console.log("点击刷新");
+            console.log(res.data);
+            if (res.data.length < 0) {
+                return
             }
-        })
-    },
-    getUserInfo(e) {
-        // 不推荐使用getUserInfo获取用户信息，预计自2021年4月13日起，getUserInfo将不再弹出弹窗，并直接返回匿名的用户个人信息
-        console.log(e)
-        this.setData({
-            userInfo: e.detail.userInfo,
-            hasUserInfo: true
-        })
+            that.setData({
+                hkdRate: res.data[0],
+            });
+        }).catch(function (err) {
+            console.error(err);
+        });
     }
+
 })
+
+/**
+    ZCcyNbr: "港币"
+    ZRatDat: "2023年05月31日"
+    ZRatTim: "19:51:55"
+    ZRtbBid: "90.73" 中间价
+    ZRtcBid: "89.91" 现钞买入价  (c: cash)
+    ZRtcOfr: "90.91" 现钞卖出价 (c: cash)
+    ZRthBid: "90.55" 现汇买入价
+    ZRthOfr: "90.91" 现汇卖出价
+
+    交易币单位 100
+    基本币   人民币
+    现汇卖出价 90.91
+    现钞卖出价 90.91
+    现汇买入价 90.55
+    现钞买入价 89.91
+ */
