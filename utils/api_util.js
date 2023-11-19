@@ -4,7 +4,7 @@ async function GetCMSRate() {
     return new Promise((resolve, reject) => {
         wx.request({
             // url: BASE_URL + "/v1/mp2/get",
-            url: "https://m.cmbchina.com/api/rate/getfxratedetail/?name=港币",
+            url: "https://m.cmbchina.com/api/rate/fx-rate?name=港币",
             method: "GET",
             data: {},
             timeout: 1500,

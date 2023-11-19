@@ -9,12 +9,12 @@ Page({
         userInfo: {},
         hasUserInfo: false,
         hkdRate: {
-            ZCcyNbr: "未知", // 币种
-            ZRatDat: "date", // 日期
-            ZRatTim: "time", // 时间
-            ZRtbBid: "0",    // 中间价
-            ZRthBid: "0", // 现汇买入价
-            ZRthOfr: "0"  // 现汇卖出价
+          ccyNbr: "未知", // 币种
+          ratDat: "date", // 日期
+          ratTim: "time", // 时间
+          rtbBid: "0",    // 中间价
+          rthBid: "0", // 现汇买入价
+          rthOfr: "0"  // 现汇卖出价
         }
     },
     // 点击刷新
@@ -31,11 +31,12 @@ Page({
         var that = this;
         ApiUtil.GetCMSRate().then(function (res) {
             console.log("点击刷新");
-            if (res.data.length < 0) {
+            var rates = res.body.data
+            if (rates.length < 0) {
                 return
             }
             that.setData({
-                hkdRate: res.data[0],
+                hkdRate: rates[0],
             });
         }).catch(function (err) {
             console.error(err);
